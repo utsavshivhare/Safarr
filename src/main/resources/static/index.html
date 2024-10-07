@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map Application</title>
+    <link rel="stylesheet" href="/styles.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<h1>Interactive Map Application</h1>
+<div id="map"></div>
+<div id="location-form">
+    <h3>Add Location</h3>
+    <input type="text" id="location-name" placeholder="Location Name">
+    <input type="text" id="latitude" placeholder="Latitude">
+    <input type="text" id="longitude" placeholder="Longitude">
+    <textarea id="description" placeholder="Description"></textarea>
+    <textarea id="custom-text" placeholder="Custom Text"></textarea>
+    <button id="add-location">Add Location</button>
+</div>
+<div id="image-upload">
+    <h3>Upload Images</h3>
+    <input type="file" id="image-input" multiple>
+    <button id="upload-images">Upload Images</button>
+</div>
+<script src="/script.js"></script>
+</body>
+</html>
