@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -15,9 +16,15 @@ public class Map {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String title;
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     private AppUser user;
-    private String title;
-}
 
+    @OneToMany(mappedBy = "map")
+    private List<Location> locations;
+
+    @OneToMany(mappedBy = "map")
+    private List<SharedMap> sharedMaps;
+}

@@ -19,7 +19,6 @@ public class Image {
     @JoinColumn(name = "location_id")
     private Location location;
 
-    @Lob  // Use @Lob for large objects
-    private byte[] imageData;  // Store the image data as a byte array
+    private String url;
 }
 

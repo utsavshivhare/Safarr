@@ -1,46 +1,33 @@
 package com.safarr.app.controller;
 
-import com.safarr.app.model.Image;
 import com.safarr.app.model.Location;
-import com.safarr.app.repository.ImageRepository;
 import com.safarr.app.repository.LocationRepository;
+import com.safarr.app.service.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/locations")
+@RequestMapping("/api")
 public class LocationController {
 
     @Autowired
     private LocationRepository locationRepository;
 
     @Autowired
-    private ImageRepository imageRepository;
+    private LocationService locationService;
 
-    @PostMapping
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/location")
     public ResponseEntity<Location> createLocation(@RequestBody Location location) {
-        return ResponseEntity.ok(locationRepository.save(location));
+        return ResponseEntity.ok(locationService.saveLocation(location));
     }
 
-    @PostMapping("/{locationId}/images")
-    public ResponseEntity<Image> addImage(@PathVariable Long locationId, @RequestParam("file") MultipartFile file) {
-        try {
-            Image image = new Image();
-            image.setLocation(locationRepository.findById(locationId).orElseThrow());
-            image.setImageData(file.getBytes());  // Store the image data as a byte array
-            return ResponseEntity.ok(imageRepository.save(image));
-        } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
-
-    @GetMapping("/{mapId}")
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/location/{mapId}")
     public ResponseEntity<List<Location>> getLocationsByMapId(@PathVariable Long mapId) {
         return ResponseEntity.ok(locationRepository.findAllByMapId(mapId));
     }

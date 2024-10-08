@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Data
@@ -14,8 +15,14 @@ public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String username;
-    private String password;
-    private String email;
-}
 
+    private String email;
+    private String password;
+    private String username;
+
+    @OneToMany(mappedBy = "user")
+    private List<Map> maps;
+
+    @OneToMany(mappedBy = "sharedWithUser")
+    private List<SharedMap> sharedMaps;
+}
