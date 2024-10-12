@@ -1,6 +1,6 @@
 package com.safarr.app.service;
 
-import com.safarr.app.model.Location;
+import com.safarr.app.entity.Location;
 import com.safarr.app.repository.LocationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

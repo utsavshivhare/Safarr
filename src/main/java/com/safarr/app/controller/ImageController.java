@@ -1,6 +1,6 @@
 package com.safarr.app.controller;
 
-import com.safarr.app.model.Image;
+import com.safarr.app.entity.Image;
 import com.safarr.app.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
 package com.safarr.app.controller;
 
-import com.safarr.app.model.SharedMap;
+import com.safarr.app.entity.SharedMap;
 import com.safarr.app.service.SharedMapService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

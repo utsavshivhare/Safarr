@@ -1,4 +1,4 @@
-package com.safarr.app.model;
+package com.safarr.app.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

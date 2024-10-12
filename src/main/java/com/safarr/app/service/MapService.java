@@ -1,6 +1,6 @@
 package com.safarr.app.service;
 
-import com.safarr.app.model.Map;
+import com.safarr.app.entity.Map;
 import com.safarr.app.repository.MapRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -19,12 +19,12 @@ public class AuthenticationService {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    public String login(String username, String password) {
+    public String login(String userNameOrEmail, String password) {
         // Perform authentication
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userNameOrEmail, password));
 
         // Retrieve user details
-        UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(userNameOrEmail);
 
         // Generate JWT Token
         return jwtUtil.generateToken(userDetails.getUsername());
