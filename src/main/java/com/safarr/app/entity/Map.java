@@ -1,16 +1,21 @@
 package com.safarr.app.entity;
 
 import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+// removed @Data to avoid circular toString issue
+@Builder
 public class Map {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +27,7 @@ public class Map {
     @JoinColumn(name = "user_id")
     private AppUser user;
 
-    @OneToMany(mappedBy = "map")
+    @OneToMany(mappedBy = "map", cascade = CascadeType.ALL)
     private List<Location> locations;
 
     @OneToMany(mappedBy = "map")
