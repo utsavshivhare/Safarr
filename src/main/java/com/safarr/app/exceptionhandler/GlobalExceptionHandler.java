@@ -26,14 +26,14 @@ public class GlobalExceptionHandler {
      * @param ex the ValidationException
      * @return ResponseEntity containing the error response
      */
-    @ExceptionHandler(ValidationException.class)
+    @ExceptionHandler(AppException.class)
     public ResponseEntity<ErrorResponse> handleValidationException(AppException ex) {
         ErrorResponse errorResponse = new ErrorResponse(
                 ex.getMessage(),
                 ex.getStatus().value(),
                 Timestamp.valueOf(LocalDateTime.now()).toString()
         );
-        return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(errorResponse, ex.getStatus());
     }
 
     /**

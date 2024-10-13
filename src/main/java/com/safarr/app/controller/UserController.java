@@ -1,6 +1,6 @@
 package com.safarr.app.controller;
 
-import static com.safarr.app.utils.Utils.userRequestToAppUserEntity;
+import static com.safarr.app.utils.Utils.userRequestToEntity;
 
 import com.safarr.app.Config.AuthenticationService;
 import com.safarr.app.exceptionhandler.AppException;
@@ -28,7 +28,7 @@ public class UserController {
 
     @PostMapping(value = "/register", consumes = "application/json", produces = "application/json")
     public ResponseEntity<RegisterResponse> register(@RequestBody @Valid RegisterUserRequest registerUserRequest) {
-        String registerUserResponse = appUserService.registerUser(userRequestToAppUserEntity(registerUserRequest));
+        String registerUserResponse = appUserService.registerUser(userRequestToEntity(registerUserRequest));
         return ResponseEntity.ok(
                 RegisterResponse.builder()
                         .message(registerUserResponse)
