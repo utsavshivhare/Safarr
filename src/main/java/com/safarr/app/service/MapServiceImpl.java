@@ -1,5 +1,7 @@
 package com.safarr.app.service;
 
+import static com.safarr.app.utils.Utils.getLoggedInUserDetails;
+
 import com.safarr.app.entity.AppUser;
 import com.safarr.app.entity.Map;
 import com.safarr.app.exceptionhandler.AppException;
@@ -23,28 +25,22 @@ public class MapServiceImpl implements MapService {
     private AppUserRepository appUserRepository;
 
     public Map saveMap(Map map) {
-        map.setUser(getLoggedInUserDetails());
+        map.setUser(getLoggedInUserDetails(appUserRepository));
         return mapRepository.save(map);
     }
 
     @Override
     public Map getMapById(Long mapId) {
-        return mapRepository.findByIdAndUserId(mapId, getLoggedInUserDetails().getId())
+        return mapRepository.findByIdAndUserId(mapId, getLoggedInUserDetails(appUserRepository).getId())
                 .orElseThrow(() ->
                         new AppException("Map not found with id:" + mapId, HttpStatus.NOT_FOUND));
     }
 
     @Override
     public List<Map> getAllMaps() {
-        return mapRepository.findAllByUserId(getLoggedInUserDetails().getId());
+        return mapRepository.findAllByUserId(getLoggedInUserDetails(appUserRepository).getId());
     }
 
-    private AppUser getLoggedInUserDetails() {
-        String usernameOrEmail = SecurityContextHolder.getContext().getAuthentication().getName();
-        AppUser appUser = appUserRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-        return appUser;
-    }
 
 
 }

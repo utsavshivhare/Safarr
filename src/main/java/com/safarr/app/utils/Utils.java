@@ -8,6 +8,9 @@ import com.safarr.app.model.LocationRequest;
 import com.safarr.app.model.LocationResponse;
 import com.safarr.app.model.MapResponse;
 import com.safarr.app.model.RegisterUserRequest;
+import com.safarr.app.repository.AppUserRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 import java.util.Collections;
 import java.util.List;
@@ -81,5 +84,11 @@ public class Utils {
         return maps != null ? maps.stream()
                 .map(Utils::mapEntityToResponse)
                 .collect(Collectors.toList()) : Collections.emptyList();
+    }
+
+    public static AppUser getLoggedInUserDetails(AppUserRepository appUserRepository) {
+        String usernameOrEmail = SecurityContextHolder.getContext().getAuthentication().getName();
+        return appUserRepository.findByUsernameOrEmail(usernameOrEmail, usernameOrEmail)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }
