@@ -1,6 +1,6 @@
 package com.safarr.app.Config;
 
-import com.safarr.app.model.AppUser;
+import com.safarr.app.entity.AppUser;
 import com.safarr.app.repository.AppUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 
 @Service
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private AppUserRepository appUserRepository;
@@ -19,7 +19,8 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Fetch the user from the database
-        AppUser user = appUserRepository.findByUsername(username);
+        AppUser user = appUserRepository.findByUsernameOrEmail(username, username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found with username or email: " + username));
 
         if (user == null) {
             throw new UsernameNotFoundException("User not found with username: " + username);

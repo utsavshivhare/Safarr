@@ -1,6 +1,6 @@
 package com.safarr.app.service;
 
-import com.safarr.app.model.Image;
+import com.safarr.app.entity.Image;
 import com.safarr.app.repository.ImageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
